@@ -1,0 +1,79 @@
+//documentacion de partes complejas 
+En el código proporcionado, la función agregarTareas es pasada como una prop 
+al componente Fomulario. Su función es permitir que el componente Fomulario envíe los datos de la 
+tarea ingresados por el usuario a un componente padre.
+
+Cuando se llama a agregarTareas dentro de la función ActionForm, se le pasa un objeto con la información de la tarea:
+
+jsx
+Copy code
+agregarTareas({
+  TaskName: TaskName,
+  description: description,
+  Estado: Estado === 'Pendiente' ? false : true,
+  check: check,
+  id: Date.now()
+})
+Este objeto contiene los valores de TaskName, description, Estado, check e id. 
+Estos valores representan la tarea ingresada por el usuario en el formulario.
+
+La función agregarTareas es responsable de manejar estos datos en el componente padre del Fomulario. 
+Puede realizar acciones como almacenar los datos en un estado global o realizar alguna operación específica con ellos.
+
+En resumen, agregarTareas es una función que permite enviar los datos de la tarea ingresados por el usuario desde 
+el componente Fomulario hacia un componente padre para su posterior procesamiento o almacenamiento
+
+
+*****************************?por que se hace una funcio de flecha en el evento onclick ?********************
+
+La razón por la cual se utiliza una función de flecha en el onClick en lugar de 
+llamar directamente a BtnEliminarTask(id) es porque esto permite diferir la ejecución de la función hasta que ocurra el evento onClick.
+
+Cuando se utiliza onClick={() => BtnEliminarTask(id)}, se crea una función anónima de flecha 
+que se ejecutará cuando se haga clic en el elemento al que se le ha asignado este evento. 
+Dentro de esta función anónima, se llama a BtnEliminarTask(id) con el parámetro id proporcionado.
+
+Si simplemente se llamara a BtnEliminarTask(id) directamente en el onClick, la función se ejecutaría 
+inmediatamente cuando se está renderizando el componente o cuando se está asignando el evento. 
+Esto puede no ser deseado, especialmente si se desea que la función se ejecute solo cuando ocurra el 
+evento de clic.
+
+En resumen, al utilizar una función de flecha en el onClick, se asegura que la función BtnEliminarTask 
+se ejecute solo cuando ocurra el evento de clic, en lugar de ejecutarse inmediatamente durante la
+ renderización del componente.
+
+//**//basicament se realiza para que cuando la pagina este corriendo no se ejecute de una vez el evento
+onClick 
+
+*************************explicacion de la funcion cambiarestado**********************************
+
+La función CambiarEstado recibe un parámetro llamado id. 
+Aquí está la explicación de lo que hace la función paso a paso:
+
+toDos parece ser una variable o estado que contiene un arreglo de objetos. 
+Supongamos que cada objeto representa una tarea y tiene propiedades como id y Estado.
+
+map es un método de arreglo en JavaScript que crea un nuevo arreglo con los resultados de llamar a 
+una función de retorno de llamada (callback) en cada elemento del arreglo original.
+
+En este caso, la función de retorno de llamada es (i) => (i.id === id ? { ...i, Estado: !i.Estado } : i). 
+Esto significa que se va a llamar a esta función para cada elemento i del arreglo toDos y se va a 
+realizar una comprobación.
+
+Si la condición i.id === id es verdadera, significa que el elemento i tiene el mismo id que el valor
+ de id pasado como parámetro. En este caso, se crea un nuevo objeto utilizando el operador de propagación 
+ ({...i}) para copiar todas las propiedades del objeto original i. Luego, se actualiza la propiedad 
+ Estado del nuevo objeto con el valor opuesto (!i.Estado), es decir, se invierte su valor booleano.
+
+Si la condición es falsa, significa que el elemento i no tiene el mismo id que el valor de id. 
+En este caso, se devuelve el objeto i sin cambios.
+
+Al finalizar la ejecución de map, se obtiene un nuevo arreglo que contiene todos los elementos de toDos, 
+pero con la propiedad Estado actualizada para el objeto que tiene el mismo id que el valor de id.
+
+Sin embargo, en la función CambiarEstado no se devuelve explícitamente el nuevo arreglo.
+ Sería necesario agregar una sentencia return editarTask; al final de la función para que retorne
+  el arreglo modificado.
+
+En resumen, la función CambiarEstado utiliza el método map para crear un nuevo arreglo donde se 
+actualiza la propiedad Estado de un objeto en función de su id.
